@@ -5,15 +5,15 @@
 module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
-  await deploy("Circles", {
+  await deploy("GenFrens", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
     //args: [ "Hello", ethers.utils.parseEther("1.5") ],
     log: true,
 
   });
-  const circles = await ethers.getContract("Circles", deployer);
-  await circles.transferOwnership('0x1d27CA1F68b1FFd5c174A8c627926AA5064C2de3');
+  const genFrens = await ethers.getContract("GenFrens", deployer);
+  await genFrens.transferOwnership('0x9ea04B953640223dbb8098ee89C28E7a3B448858');
 
 
   /*
@@ -52,4 +52,4 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   });
   */
 };
-module.exports.tags = ["Circles"];
+module.exports.tags = ["GenFrens"];

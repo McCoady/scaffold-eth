@@ -20,7 +20,7 @@ import {
 } from "eth-hooks";
 import { useExchangeEthPrice } from "eth-hooks/dapps/dex";
 // import Hints from "./Hints";
-import { ExampleUI, Hints, Subgraph } from "./views";
+import { ExampleUI, Hints, Subgraph, Code } from "./views";
 
 // contracts
 import deployedContracts from "./contracts/hardhat_contracts.json";
@@ -52,7 +52,7 @@ const { ethers } = require("ethers");
 */
 
 /// 📡 What chain are your contracts deployed to?
-const targetNetwork = NETWORKS.localhost; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
+const targetNetwork = NETWORKS.rinkeby; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
 
 // 😬 Sorry for all the console logging
 const DEBUG = true;
@@ -249,7 +249,7 @@ function App(props) {
   ]);
 
   // keep track of a variable from the contract in the local React state:
-  const purpose = useContractReader(readContracts, "Circles", "purpose");
+  const purpose = useContractReader(readContracts, "GenFrens", "purpose");
 
   /*
   const addressFromENS = useResolveName(mainnetProvider, "austingriffith.eth");
@@ -498,6 +498,16 @@ function App(props) {
               Subgraph
             </Link>
           </Menu.Item>
+          <Menu.Item key="/code">
+            <Link
+              onClick={() => {
+                setRoute("/code");
+              }}
+              to="/code"
+            >
+              Code
+            </Link>
+          </Menu.Item>
         </Menu>
 
         <Switch>
@@ -509,7 +519,7 @@ function App(props) {
             */}
 
             <Contract
-              name="Circles"
+              name="GenFrens"
               price={price}
               signer={userSigner}
               provider={localProvider}
@@ -551,6 +561,7 @@ function App(props) {
               contractConfig={contractConfig}
               chainId={1}
             />
+
             {/*
             <Contract
               name="UNI"
@@ -561,6 +572,14 @@ function App(props) {
               blockExplorer="https://etherscan.io/"
             />
             */}
+          </Route>
+          <Route path="/code">
+            <Code
+              address={address}
+              yourLocalBalance={yourLocalBalance}
+              mainnetProvider={mainnetProvider}
+              price={price}
+            />
           </Route>
           <Route path="/subgraph">
             <Subgraph
