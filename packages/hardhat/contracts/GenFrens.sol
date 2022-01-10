@@ -42,7 +42,7 @@ contract GenFrens is ERC721Enumerable, Ownable {
         //sCol
         TIERS[1] = [500, 1500, 1500, 2000, 2000, 2500];
         //noise Max
-        TIERS[2] = [6000, 3000, 1000];
+        TIERS[2] = [4000, 3000, 2000, 1000];
         //eyeSize
         TIERS[3] = [5000, 2500, 2500];
         //Thickness
