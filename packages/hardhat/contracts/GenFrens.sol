@@ -21,6 +21,7 @@ contract GenFrens is ERC721A, Ownable {
     //uint256s
     uint256 MAX_SUPPLY = 444;
     uint256 SEED_NONCE = 0;
+    uint256 MINT_COST = 0.0001 ether;
 
     //minting flag
     bool public MINTING_LIVE = false;
@@ -40,7 +41,7 @@ contract GenFrens is ERC721A, Ownable {
         //pCol
         TIERS[0] = [1400, 1400, 1800, 700, 700, 1800, 1100, 1100];
         //sCol
-        TIERS[1] = [1500, 2000, 900, 900, 1200, 2000, 1500];
+        TIERS[1] = [1500, 1800, 900, 900, 1200, 1800, 1500, 400];
         //noise Max
         TIERS[2] = [4000, 3000, 2000, 1000];
         //eyeSize
@@ -154,7 +155,8 @@ contract GenFrens is ERC721A, Ownable {
     /**
      * @dev Mints new tokens.
      */
-    function mintFren(uint8 mintAmount) public {
+    function mintFren(uint8 mintAmount) public payable {
+        require(msg.value >= MINT_COST * mintAmount, "gib more coins");
         return mintInternal(mintAmount);
     }
 
@@ -194,7 +196,7 @@ contract GenFrens is ERC721A, Ownable {
         htmlString = string(
             abi.encodePacked(
                 htmlString,
-                "let%20seed%2Cxoff%3D1%2CpCs%3D%5B0%2C30%2C80%2C120%2C180%2C225%2C270%2C300%5D%2CsCs%3D%5B0%2C30%2C120%2C180%2C225%2C270%2C300%5D%2CnMV%3D%5B.5%2C1%2C3%2C4.5%5D%2CeSs%3D%5B.26%2C.33%2C.4%5D%2CtkV%3D%5B10%2C25%2C70%5D%2CeLs%3D%5B.4%2C.44%5D%3Bfunction%20setup%28%29%7BcreateCanvas%28500%2C500%29%2Cw%3Dwidth%3Bh%3Dheight%3BcolorMode%28HSB%2C360%2C100%2C100%29%2CstrokeCap%28ROUND%29%2CnoiseSeed%28tokenId%29%2CrandomSeed%28tokenId%29%3BpC%3DparseInt%28hash.substring%280%2C1%29%29%2CsC%3DparseInt%28hash.substring%281%2C2%29%29%2CnM%3DparseInt%28hash.substring%282%2C3%29%29%2CeS%3DparseInt%28hash.substring%283%2C4%29%29%2Ctk%3DparseInt%28hash.substring%284%2C5%29%29%2CeL%3DparseInt%28hash.substring%285%2C6%29%29%3BwP%3Drandom%285%2C10%29%3BhP%3Drandom%285%2C10%29%3B%7Dfunction%20draw%28%29%7Bbackground%28255%29%3Bfor%28let%20s%3D.05%2Aw%3Bs%3Cw%3Bs%2B%3D.1%2Aw%29for%28let%20e%3D.05%2Ah%3Be%3Ch%3Be%2B%3D.1%2Ah%29noStroke%28%29%2Cfill%28sCs%5BsC%5D%2Crandom%2825%29%2C100%29%2Cci%3Dnew%20C1%2Cpush%28%29%2Ctranslate%28s%2Ce%29%2Cscale%28.14%2C.14%29%2Cci.sh%28%29%2Cpop%28%29%3Bc1%3Dnew%20C2%28pCs%5BpC%5D%2C40%2C100%2C0%2CnMV%5BnM%5D%2CwP%2ChP%2CtkV%5Btk%5D%29%2Cpush%28%29%2Ctranslate%28w%2F2%2Ch%29%2Crotate%283.14%29%2Cscale%28.55%2C1.25%29%2Cc1.sh%28%29%2Cpop%28%29%2Cpush%28%29%2Ctranslate%28w%2F2%2Ch%2F2%29%2Cc1.sh%28%29%2Cpop%28%29%2Ce1%3Dnew%20C2%280%2C0%2C100%2C1%2CnMV%5BnM%5D%2F2%2B1%2CwP%2ChP%2CtkV%5Btk%5D%29%2Cpush%28%29%2Ctranslate%28.4%2Aw%2C.4%2Ah%29%2Cscale%28.33%29%2Ce1.sh%28%29%2Cpop%28%29%2Ce2%3Dnew%20C2%280%2C0%2C100%2C1%2CnMV%5BnM%5D%2F2%2B1%2CwP%2ChP%2CtkV%5Btk%5D%29%2Cpush%28%29%2Cpush%28%29%2Ctranslate%28.6%2Aw%2C.4%2Ah%29%2Cscale%28eSs%5BeS%5D%29%2Crotate%28PI%29%2Ce2.sh%28%29%2Cpop%28%29%2Cfill%28sC%2C70%2C100%29%2Cp1%3Dnew%20C2%28sCs%5BsC%5D%2C100%2C100%2C1%2CnMV%5BnM%5D%2F2%2B1%2CwP%2ChP%2CtkV%5Btk%5D%29%2Cpush%28%29%2Ctranslate%28.4%2Aw%2Ch%2AeLs%5BeL%5D%29%2Cscale%28.1%29%2Cp1.sh%28%29%2Cpop%28%29%2Cp2%3Dnew%20C2%28sCs%5BsC%5D%2C100%2C100%2C1%2CnMV%5BnM%5D%2F2%2B1%2CwP%2ChP%2CtkV%5Btk%5D%29%2Cpush%28%29%2Ctranslate%28.6%2Aw%2C.4%2Ah%29%2Cscale%28.1%29%2Crotate%28PI%29%2Cp2.sh%28%29%2Cpop%28%29%3Bfor%28let%20s%3D.4%2Aw%3Bs%3C%3D.6%2Aw%3Bs%2B%2B%29sats%3Dmap%28noise%28xoff%29%2C0%2C1%2C30%2C100%29%2Cfill%28sCs%5BsC%5D%2Csats%2C100%29%2Cr%3Dmap%28noise%28xoff%29%2C0%2C1%2C.53%2C.77%29%2Cellipse%28s%2Cr%2Ah%2C%28h%2Bw%29%2F2%2A.05%29%2Cxoff%2B%3D0.02%3BnoLoop%28%29%7Dclass%20C1%7Bsh%28%29%7BbeginShape%28%29%3Bfor%28let%20s%3D0%3Bs%3CTWO_PI%3Bs%2B%3D.16%29%7Blet%20e%3Dmap%28cos%28s%29%2C-1%2C1%2C0%2CnMV%5BnM%5D%29%2Ct%3Dmap%28sin%28s%29%2C-1%2C1%2C0%2CnMV%5BnM%5D%29%2Ci%3Dmap%28noise%28e%2Ct%29%2C0%2C1%2C100%2C200%29%2Ch%3Di%2Acos%28s%29%2Co%3Di%2Asin%28s%29%3Bvertex%28h%2Co%29%2Ce%2B%3D.004%2Ct%2B%3D.006%7DendShape%28%29%7D%7Dclass%20C2%7Bconstructor%28s%2Ce%2Ct%2Ci%2Ch%2Co%2Ca%2Cn%29%7Bthis.hue%3Ds%2Cthis.sat%3De%2Cthis.bt%3Dt%2Cthis.cNM%3Dh%2Cthis.cH%3Do%2Cthis.cW%3Da%2Cthis.bd%3Di%2Cthis.sW%3Dn%7Dsh%28%29%7BbeginShape%28%29%2CnoFill%28%29%3Bfor%28let%20s%3D0%3Bs%3CTWO_PI%3Bs%2B%3D.0456%29%7Blet%20e%3Dmap%28cos%28s%29%2C-1%2C1%2C0%2Cthis.cNM%29%2Ct%3Dmap%28sin%28s%29%2C-1%2C1%2C0%2Cthis.cNM%29%2Ci%3Dmap%28noise%28e%2Ct%29%2C0%2C1%2C100%2C200%29%2Cz%3Di%2Acos%28s%29%2Co%3Di%2Asin%28s%29%3B0%3D%3Dthis.bd%26%26%28stroke%28this.hue%2Cthis.sat%2Cthis.bt-25%29%2CstrokeWeight%28this.sW%29%29%2Cvertex%28z%2Co%29%2CendShape%28%29%2Cpush%28%29%2Cstroke%28this.hue%2Cthis.sat%2Cthis.bt%29%2CstrokeWeight%286%29%2Cline%28z%2B.015%2Aw%2Co%2B.02%2Ah%2Cw%2Fthis.cW%2Ch%2Fthis.cH%29%2Cpop%28%29%2Ce%2B%3D.04%2Ct%2B%3D.006%7DendShape%28%29%7D%7D%3C%2Fscript%3E%3C%2Fbody%3E%3C%2Fhtml%3E"
+                "xo%3D1%2Csd%3D21%2AtokenId%2CpCs%3D%5B0%2C30%2C80%2C120%2C180%2C225%2C270%2C300%5D%2CsCs%3D%5B0%2C30%2C120%2C180%2C225%2C270%2C300%2C330%5D%2CnMV%3D%5B.5%2C1%2C2%2C3%5D%2CeSs%3D%5B.26%2C.33%2C.4%5D%2CtV%3D%5B10%2C25%2C70%5D%2CeLs%3D%5B0%2C15%5D%3Bfunction%20setup%28%29%7BcreateCanvas%28500%2C500%29%2CcolorMode%28HSB%2C360%2C100%2C100%29%2CstrokeCap%28ROUND%29%2CnoiseSeed%28sd%29%2CrandomSeed%28sd%29%2CpC%3DparseInt%28hash.substring%280%2C1%29%29%2CsC%3DparseInt%28hash.substring%281%2C2%29%29%2CnM%3DparseInt%28hash.substring%282%2C3%29%29%2CeS%3DparseInt%28hash.substring%283%2C4%29%29%2Ct%3DparseInt%28hash.substring%284%2C5%29%29%2CeL%3DparseInt%28hash.substring%285%2C6%29%29%2C330%3D%3DsCs%5BsC%5D%3Fk%3DpCs%5BpC%5D%3Ak%3DsCs%5BsC%5D%2CwP%3Drandom%285%2C10%29%2ChP%3Drandom%285%2C10%29%7Dfunction%20draw%28%29%7Bbackground%28255%29%3Bfor%28let%20s%3D25%3Bs%3C500%3Bs%2B%3D50%29for%28let%20e%3D25%3Be%3C500%3Be%2B%3D50%29noStroke%28%29%2Cf%3DsCs%5BsC%5D%2C330%3D%3Df%3FrC%3Drandom%28360%29%3ArC%3Dk%2Cfill%28rC%2Crandom%2825%29%2C100%29%2Cc%3Dnew%20C1%2Cpush%28%29%2Ctranslate%28s%2Ce%29%2Cscale%28.14%2C.14%29%2Cc.s%28%29%2Cpop%28%29%3Bc1%3Dnew%20C2%28pCs%5BpC%5D%2C40%2C100%2C0%29%2Cpush%28%29%2Ctranslate%28250%2C500%29%2Crotate%283.14%29%2Cscale%28.55%2C1.25%29%2Cc1.s%28%29%2Cpop%28%29%2Cpush%28%29%2Ctranslate%28250%2C250%29%2Cc1.s%28%29%2Cpop%28%29%2CnoStroke%28%29%2Ce1%3Dnew%20C2%280%2C0%2C100%2C1%29%2Cpush%28%29%2Ctranslate%28200%2C200%29%2Cscale%28.33%29%2Ce1.s%28%29%2Cpop%28%29%2Ce2%3Dnew%20C2%280%2C0%2C100%2C1%29%2Cpush%28%29%2Cpush%28%29%2Ctranslate%28300%2C200%29%2Cscale%28eSs%5BeS%5D%29%2Crotate%28PI%29%2Ce2.s%28%29%2Cpop%28%29%2Cp1%3Dnew%20C2%28k%2C100%2C100%2C1%29%2Cpush%28%29%2Ctranslate%28200%2C200%2BeLs%5BeL%5D%29%2Cscale%28.1%29%2Cp1.s%28%29%2Cpop%28%29%2Cp2%3Dnew%20C2%28k%2C100%2C100%2C1%29%2Cpush%28%29%2Ctranslate%28300%2C200-eLs%5BeL%5D%29%2Cscale%28.1%29%2Crotate%28PI%29%2Cp2.s%28%29%2Cpop%28%29%3Bfor%28let%20s%3D200%3Bs%3C%3D300%3Bs%2B%2B%29sats%3Dmap%28noise%28xo%29%2C0%2C1%2C30%2C100%29%2Cfill%28k%2Csats%2C95%29%2Cr%3Dmap%28noise%28xo%29%2C0%2C1%2C.53%2C.77%29%2Cellipse%28s%2C500%2Ar%2C28%29%2Cxo%2B%3D.015%3BnoLoop%28%29%7Dclass%20C1%7Bs%28%29%7BbeginShape%28%29%3Bfor%28let%20s%3D0%3Bs%3CTWO_PI%3Bs%2B%3D.16%29%7Blet%20e%3Dmap%28cos%28s%29%2C-1%2C1%2C0%2CnMV%5BnM%5D%29%2Ct%3Dmap%28sin%28s%29%2C-1%2C1%2C0%2CnMV%5BnM%5D%29%2Cn%3Dmap%28noise%28e%2Ct%29%2C0%2C1%2C100%2C200%29%2Ca%3Dn%2Acos%28s%29%2Cp%3Dn%2Asin%28s%29%3Bvertex%28a%2Cp%29%2Ce%2B%3D.004%7DendShape%28%29%7D%7Dclass%20C2%7Bconstructor%28s%2Ce%2Ct%2Cn%29%7Bthis.h%3Ds%2Cthis.z%3De%2Cthis.l%3Dt%2Cthis.b%3Dn%7Ds%28%29%7BbeginShape%28%29%2CnoFill%28%29%3Bfor%28let%20s%3D0%3Bs%3CTWO_PI%3Bs%2B%3D.045%29%7Blet%20e%3Dmap%28sin%28s%29%2C-1%2C1%2C0%2CnMV%5BnM%5D%29%2Cn%3Dmap%28cos%28s%29%2C-1%2C1%2C0%2CnMV%5BnM%5D%29%2Ca%3Dmap%28noise%28n%2Ce%29%2C0%2C1%2C100%2C200%29%2Cp%3Da%2Acos%28s%29%2Co%3Da%2Asin%28s%29%3B0%3D%3Dthis.b%26%26%28stroke%28this.h%2Cthis.z%2Cthis.l-25%29%2CstrokeWeight%28tV%5Bt%5D%29%29%2Cvertex%28p%2Co%29%2CendShape%28%29%2Cpush%28%29%2Cstroke%28this.h%2Cthis.z%2Cthis.l%29%2CstrokeWeight%286%29%2Cline%28p%2B7.5%2Co%2B10%2C500%2FwP%2C500%2FhP%29%2Cpop%28%29%2Cn%2B%3D.04%2Ce%2B%3D.001%7DendShape%28%29%7D%7D%3C%2Fscript%3E%3C%2Fbody%3E%3C%2Fhtml%3E"
             )
         );
 
@@ -354,5 +356,12 @@ contract GenFrens is ERC721A, Ownable {
 
     function setAnimationUrl(string memory _animationUrl) public onlyOwner {
         animationUrl = _animationUrl;
+    }
+
+    function withdraw() public payable onlyOwner {
+        (bool success, ) = payable(msg.sender).call{
+            value: address(this).balance
+        }("");
+        require(success);
     }
 }
