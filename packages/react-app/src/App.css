@@ -1,3 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Boogaloo&display=swap');
+
 .App {
   text-align: center;
+  font-family: 'Boogaloo', cursive;
+}
+
+.home {
+  font-size: 25px;
+}
+
+.sketch-container {
+  position: fixed;
+  z-index: -1;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  opacity: 0.5;
+}
+
+.site-page-header {
+  color: #00ff00;
 }

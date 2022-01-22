@@ -251,7 +251,7 @@ contract GenFrens is ERC721A, Ownable {
         string memory tokenHash = _tokenIdToHash(_tokenId);
 
         string
-            memory description = '", "description": "GenFrens is a collection of 120 unique pieces of generative pixel art. Metadata and art is mirrored permanently on-chain. Double click to full screen. Press F then right-click and save as a banner.",';
+            memory description = '", "description": "GenFrens is a collection of 444 unique generative frens. Metadata and art is mirrored permanently on-chain, these frens will never leave you <3.",';
 
         return
             string(
