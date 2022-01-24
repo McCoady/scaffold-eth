@@ -64,7 +64,7 @@ const SketchComp = (props) => {
             checkTouch() {
                 let d = p5.dist(p5.mouseX, p5.mouseY, this.x, this.y)
                 if (d < this.r) {
-                    this.s = 0;
+                    this.s = 10;
                     this.t = true;
                 }
             }
