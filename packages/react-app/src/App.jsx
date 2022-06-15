@@ -31,6 +31,7 @@ import deployedContracts from "./contracts/hardhat_contracts.json";
 import { Transactor, Web3ModalSetup } from "./helpers";
 import { Home, ExampleUI, Hints, Subgraph } from "./views";
 import { useStaticJsonRPC } from "./hooks";
+import { local } from "web3modal";
 
 const { ethers } = require("ethers");
 /*
@@ -167,7 +168,7 @@ function App(props) {
   ]);
 
   // keep track of a variable from the contract in the local React state:
-  const purpose = useContractReader(readContracts, "YourContract", "purpose");
+  const purpose = useContractReader(readContracts, "BountyBooster", "purpose");
 
   /*
   const addressFromENS = useResolveName(mainnetProvider, "austingriffith.eth");
@@ -310,7 +311,15 @@ function App(props) {
       <Switch>
         <Route exact path="/">
           {/* pass in any web3 props to this Home component. For example, yourLocalBalance */}
-          <Home yourLocalBalance={yourLocalBalance} readContracts={readContracts} />
+          <Home
+            yourLocalBalance={yourLocalBalance}
+            readContracts={readContracts}
+            writeContracts={writeContracts}
+            localProvider={localProvider}
+            mainnetProvider={mainnetProvider}
+            price={price}
+            tx={tx}
+          />
         </Route>
         <Route exact path="/debug">
           {/*
@@ -320,7 +329,16 @@ function App(props) {
             */}
 
           <Contract
-            name="YourContract"
+            name="BountyBooster"
+            price={price}
+            signer={userSigner}
+            provider={localProvider}
+            address={address}
+            blockExplorer={blockExplorer}
+            contractConfig={contractConfig}
+          />
+          <Contract
+            name="GenericNft"
             price={price}
             signer={userSigner}
             provider={localProvider}
