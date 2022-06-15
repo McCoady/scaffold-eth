@@ -26,10 +26,10 @@ Requires the contract owner to complete the bounty (and check the bounty/complet
 - Augment boost % based on type of bounty (personal,project, public good)
 - Augment boost % based on NFT statistics (number held, time held)
 
-## Function to allow users to calculate boost
+### Function to allow users to calculate boost
 Currently doesn't calculate boost % from the creator until completion (to avoid them being able to create a bounty then sell the token). Could be better alternatives to this so it's clearer how much bounty completers can expect.
 
-## UI improvements
+### UI improvements
 - List active/expired bounties in two different tabs, allow creators to upload more detailed descriptions (off chain).
 - Put all creator functions into a collapsable menu.
 - Make design prettier.
