@@ -28,7 +28,7 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   // Getting a previously deployed contract
   const SimpleNFT = await ethers.getContract("SimpleNFT", deployer);
 
-  await SimpleNFT.transferOwnership("0x9ea04B953640223dbb8098ee89C28E7a3B448858");
+  await SimpleNFT.transferOwnership("YOUR FRONTEND TESTNET ADDRESS");
   /*  await YourContract.setPurpose("Hello");
   
     // To take ownership of yourContract using the ownable library uncomment next line and add the 
