@@ -3,13 +3,12 @@ import { nftAbi } from "./abi/simpleNFT.js";
 import { getSigner, getProvider } from "./utils.js";
 import "dotenv/config";
 
-const goerliProvider = getProvider();
 const goerliSigner = getSigner();
 
 // Address of NFT Contract
-const nftAddress = "DEPLOYED NFT CONTRACT ADDRESS";
+const nftAddress = "YOUR DEPLOYED NFT CONTRACT ADDRESS";
 // Address of Vault Wallet you wish to send to
-const vaultAddress = "DESIRED VAULT WALLET ADDRESS";
+const vaultAddress = "YOUR DESIRED VAULT WALLET ADDRESS";
 
 
 // Prepare instance of nft Contract
@@ -38,8 +37,9 @@ while (!nftMinted) {
         console.log("TX mined")
 
         // Transfer NFT to designated vault address
-        nftContract.transferFrom(goerliSigner.address, vaultAddress, await nftContract.totalSupply() - 1)
-        console.log("NFT Vaulted")
+        const tokenTransfer = await nftContract.transferFrom(goerliSigner.address, vaultAddress, await nftContract.totalSupply() - 1)
+        await tokenTransfer.wait();
+        console.log("NFT Vaulted to ", vaultAddress)
 
         // End the loop
         nftMinted = true;

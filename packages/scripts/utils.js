@@ -18,4 +18,4 @@ const getSigner = (mainnet = false) => {
 };
 
 
-export { nftAddress, getProvider, getSigner }
+export { getProvider, getSigner }
