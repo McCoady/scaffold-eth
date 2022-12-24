@@ -22,7 +22,7 @@ provider.on("pending", async (tx) => {
         if (txInfo.to == nftAddress && txInfo.data == flipMintSelector) {
             console.log("Flip is being switched");
 
-            const slowerPrio = ethers.utils.formatEther(txInfo.maxPriorityFeePerGas) * 10 ** 18 - 1000;
+            const slowerPrio = txInfo.maxPriorityFeePerGas.sub(100);
 
             const nftMinted = await nftContract.mint({
                 value: ethers.utils.parseEther("0.01"),
