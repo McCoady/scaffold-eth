@@ -1,15 +1,9 @@
 import { ethers } from "ethers";
 import { nftAbi } from "./abi/simpleNFT.js";
-import { getSigner, getProvider } from "./utils.js";
+import { getSigner, nftAddress, vaultAddress } from "./utils.js";
 import "dotenv/config";
 
 const goerliSigner = getSigner();
-
-// Address of NFT Contract
-const nftAddress = "YOUR DEPLOYED NFT CONTRACT ADDRESS";
-// Address of Vault Wallet you wish to send to
-const vaultAddress = "YOUR DESIRED VAULT WALLET ADDRESS";
-
 
 // Prepare instance of nft Contract
 const nftContract = new ethers.Contract(

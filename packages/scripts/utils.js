@@ -1,6 +1,9 @@
 import "dotenv/config";
 import { ethers } from "ethers";
 
+const nftAddress = "DEPLOYED NFT CONTRACT ADDRESS";
+const vaultAddress = "DESIRED VAULT WALLET"
+
 const getProvider = (mainnet = false) => {
     const provider = mainnet
         ? new ethers.providers.AlchemyProvider("homestead", process.env.MY_ALCHEMY_KEY)
@@ -18,4 +21,4 @@ const getSigner = (mainnet = false) => {
 };
 
 
-export { getProvider, getSigner }
+export { getProvider, getSigner, nftAddress, vaultAddress }
