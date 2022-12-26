@@ -1,8 +1,9 @@
 import { ethers } from "ethers";
 import { nftAbi } from "./abi/simpleNFT.js";
-import { getSigner, nftAddress, vaultAddress } from "./utils.js";
+import { getSigner, getProvider, nftAddress, vaultAddress } from "./utils.js";
 import "dotenv/config";
 
+//const goerliProvider = getProvider();
 const goerliSigner = getSigner();
 
 // Prepare instance of nft Contract
@@ -19,6 +20,7 @@ let nftMinted = false;
 while (!nftMinted) {
 
     // Set something to check if minting of your chosen NFT has gone live
+    // Alternatively could be `if (await goerliProvider.getBlock(blockNumber)).timestamp >= {MINTING LIVE TIMESTAMP}) {}`
     if (await nftContract.mintingLive() == true) {
         // Set up mint function
         const mintNft = await nftContract.mint({
