@@ -65,3 +65,5 @@ To try it for yourself, run `node fastMintVault.js` (the script assumes mintingL
 This is simple script using a simple NFT contract. In reality there will be things in this script you'd have to adapt on a case by case basis (such as how you tell minting is 'live' and arguments necessary for the contracts mint function). But this script should give you a good baseline you can adapt for different scenarios.
 
 Also if there's a highly competitive NFT mint you'd likely need to manually adjust both maximum gas fees and maximum priority fees for your mint transaction makes it through before your competition.
+
+There's plenty of other things that could be added to this script that users might want to do, such as instantly listing on a secondary site (OpenSea, LooksRare etc).
